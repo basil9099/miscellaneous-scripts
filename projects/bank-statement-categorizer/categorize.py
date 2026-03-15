@@ -10,8 +10,12 @@ Usage:
 """
 
 import argparse
+import os
+import platform
 import re
+import subprocess
 import sys
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from datetime import date
 from pathlib import Path
 
@@ -19,6 +23,7 @@ import pandas as pd
 import pdfplumber
 import yaml
 from rich.console import Console
+from rich.progress import BarColumn, Progress, SpinnerColumn, TaskProgressColumn, TextColumn
 from rich.table import Table
 
 console = Console()
@@ -295,6 +300,19 @@ def extract_transactions(pdf_path: str, bank_hint: str = "auto") -> list[dict]:
     return rows
 
 
+def _pdf_worker(args: tuple[str, str]) -> tuple[str, list[dict], str]:
+    """
+    Module-level worker so ProcessPoolExecutor can pickle it.
+    Returns (pdf_name, rows, error_message).
+    """
+    pdf_path, bank_hint = args
+    try:
+        rows = extract_transactions(pdf_path, bank_hint)
+        return Path(pdf_path).name, rows, ""
+    except Exception as exc:  # noqa: BLE001
+        return Path(pdf_path).name, [], str(exc)
+
+
 # ---------------------------------------------------------------------------
 # Summary
 # ---------------------------------------------------------------------------
@@ -363,6 +381,15 @@ def main() -> None:
         choices=["auto", "commbank", "anz", "nab", "westpac"],
         help="Bank format hint (default: auto)",
     )
+    parser.add_argument(
+        "--open", dest="open_after", action="store_true", default=False,
+        help="Open the CSV in the default app (Numbers/Excel) after saving (macOS only)",
+    )
+    parser.add_argument(
+        "--workers", type=int, default=None, metavar="N",
+        help="Number of parallel worker processes for PDF extraction "
+             "(default: CPU count, capped at number of PDFs)",
+    )
     args = parser.parse_args()
 
     # Load rules
@@ -373,19 +400,65 @@ def main() -> None:
     rules = load_rules(str(rules_path))
     console.print(f"Loaded [bold]{len(rules)}[/bold] categories from {rules_path.name}")
 
-    # Process each PDF
-    all_rows: list[dict] = []
+    # Validate PDF paths upfront
+    valid_pdfs: list[Path] = []
     for pdf_path in args.pdfs:
-        p = Path(pdf_path)
+        p = Path(pdf_path).expanduser()
         if not p.exists():
             console.print(f"[red]File not found, skipping:[/red] {p}")
-            continue
-        console.print(f"Processing [bold]{p.name}[/bold] …")
-        rows = extract_transactions(str(p), bank_hint=args.bank)
-        for row in rows:
-            row["source_file"] = p.name
-        all_rows.extend(rows)
-        console.print(f"  → {len(rows)} transactions extracted")
+        else:
+            valid_pdfs.append(p)
+
+    if not valid_pdfs:
+        console.print("[yellow]No valid PDF files provided.[/yellow]")
+        sys.exit(1)
+
+    # Process PDFs — parallel when more than one, sequential otherwise
+    all_rows: list[dict] = []
+    n_workers = min(args.workers or os.cpu_count() or 1, len(valid_pdfs))
+    use_parallel = len(valid_pdfs) > 1
+
+    work_items = [(str(p), args.bank) for p in valid_pdfs]
+
+    progress = Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(),
+        TaskProgressColumn(),
+        console=console,
+        transient=True,
+    )
+
+    with progress:
+        task = progress.add_task("Extracting transactions…", total=len(valid_pdfs))
+
+        if use_parallel:
+            futures_map: dict = {}
+            with ProcessPoolExecutor(max_workers=n_workers) as pool:
+                for item in work_items:
+                    fut = pool.submit(_pdf_worker, item)
+                    futures_map[fut] = Path(item[0]).name
+
+                for fut in as_completed(futures_map):
+                    pdf_name, rows, err = fut.result()
+                    if err:
+                        console.print(f"[red]Error in {pdf_name}:[/red] {err}")
+                    else:
+                        for row in rows:
+                            row["source_file"] = pdf_name
+                        all_rows.extend(rows)
+                        console.print(f"  [dim]{pdf_name}[/dim] → {len(rows)} transactions")
+                    progress.advance(task)
+        else:
+            pdf_name, rows, err = _pdf_worker(work_items[0])
+            if err:
+                console.print(f"[red]Error in {pdf_name}:[/red] {err}")
+            else:
+                for row in rows:
+                    row["source_file"] = pdf_name
+                all_rows.extend(rows)
+                console.print(f"  [dim]{pdf_name}[/dim] → {len(rows)} transactions")
+            progress.advance(task)
 
     if not all_rows:
         console.print("[yellow]No transactions found across all PDFs.[/yellow]")
@@ -405,10 +478,17 @@ def main() -> None:
              "category", "source_file"]]
 
     # Write CSV
-    out_path = Path(args.out)
+    out_path = Path(args.out).expanduser()
     df.to_csv(out_path, index=False)
     console.print(f"\n[green]CSV saved:[/green] {out_path} "
                   f"([bold]{len(df)}[/bold] rows)")
+
+    # Open in default app (Numbers / Excel on macOS)
+    if args.open_after:
+        if platform.system() == "Darwin":
+            subprocess.run(["open", str(out_path)], check=False)
+        else:
+            console.print("[yellow]--open is only supported on macOS.[/yellow]")
 
     # Summary
     if args.summary:

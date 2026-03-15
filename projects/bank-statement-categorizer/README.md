@@ -3,9 +3,25 @@
 Parse Australian bank statement PDFs, normalise transaction descriptions, categorise
 spending using editable regex/keyword rules, and output a CSV + terminal summary.
 
+## macOS Setup (recommended)
+
+Run the one-command installer — it installs Homebrew (if needed), sets up a
+Python virtual environment, installs dependencies, and adds a `bank-cat` shell alias:
+
+```bash
+bash install_mac.sh
+source ~/.zshrc          # or open a new terminal
+```
+
+Then use the alias from anywhere:
+
+```bash
+bank-cat statement.pdf --open   # parses PDF and opens CSV in Numbers
+```
+
 ## Requirements
 
-Python 3.10+
+Python 3.11+
 
 ```bash
 pip install -r requirements.txt
@@ -17,8 +33,14 @@ pip install -r requirements.txt
 # Single statement
 python categorize.py statement.pdf
 
-# Multiple statements merged into one CSV
+# Multiple statements merged into one CSV (processed in parallel)
 python categorize.py jan.pdf feb.pdf mar.pdf --out q1.csv
+
+# Open the CSV in Numbers / Excel automatically after saving (macOS)
+python categorize.py statement.pdf --open
+
+# Control the number of parallel worker processes (default: CPU count)
+python categorize.py *.pdf --workers 4
 
 # Specify output file
 python categorize.py statement.pdf --out my_transactions.csv
