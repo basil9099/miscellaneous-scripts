@@ -1,0 +1,44 @@
+# Bank Statement Categories
+# Each category contains a list of regex patterns matched case-insensitively
+# against the normalised transaction description.
+# First match wins. The 'misc' catch-all at the bottom matches everything else.
+# Edit freely — changes take effect on the next run (no restart needed).
+
+categories:
+  opal_card:
+    - "opal|transport for nsw|tfnsw|sydney trains|sydney buses|nsw trains|metro trains"
+
+  petrol:
+    - "bp |caltex|ampol|shell |mobil|7-eleven.*fuel|petrol|servo|united petroleum|puma energy"
+
+  groceries:
+    - "woolworths|coles|aldi|iga|harris farm|costco|fruit.?market|foodland|drakes supermarket|spar "
+
+  takeaway:
+    - "uber eats|doordash|menulog|deliveroo|mcdonald|kfc|hungry jack|domino|subway|grill'd|nando|oporto|guzman|el jannah|red rooster|oporto|chicken treat|chatime|boost juice|zambrero"
+
+  dining:
+    - "restaurant|cafe|coffee|starbucks|gloria jean|the grounds|bar |bistro|brasserie|eatery|thai|sushi|ramen|pizza(?! hut)|bakery|patisserie|diner|kitchen|bento|izakaya"
+
+  bills:
+    - "agl |origin energy|sydney water|icon water|sa water|yarra valley water|optus|telstra|vodafone|iinet|aussie broadband|internode|netflix|spotify|amazon prime|apple.com/bill|google.*play|disney|binge|foxtel|stan |youtube premium|adobe|microsoft 365|dropbox|github"
+
+  shopping:
+    - "amazon(?! prime)|ebay|kmart|target|big w|myer|david jones|jb hi.?fi|harvey norman|officeworks|bunnings|the good guys|ikea|uniqlo|cotton on|glue store|rebel sport|supercheap"
+
+  health:
+    - "pharmacy|chemist|priceline|terry white|medical|doctor|dentist|optometrist|gym|fitness|anytime fitness|f45|crossfit|pilates|yoga|pathology|radiology|hospital|healthscope|medibank|bupa|hcf "
+
+  atm_cash:
+    - "atm|cash withdrawal|cash advance|teller cash"
+
+  transfer:
+    - "transfer|osko|pay anyone|bpay|direct debit|direct credit|salary|payroll|payment from|payment to"
+
+  travel:
+    - "airbnb|booking\\.com|expedia|flight centre|jetstar|qantas|virgin australia|rex airlines|tigerair|uber(?! eats)|ola |didi |taxi|car hire|budget rent|hertz|avis|europcar|toll |linkt|eastlink"
+
+  entertainment:
+    - "cinema|hoyts|event cinema|village cinema|reading cinema|ticketek|ticketmaster|moshtix|eventbrite|nintendo|playstation|steam |xbox|apple arcade|google play games"
+
+  misc: []  # catch-all — always keep this last
