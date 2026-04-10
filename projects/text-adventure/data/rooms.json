@@ -1,0 +1,414 @@
+{
+  "rooms": {
+    "village_square": {
+      "name": "Village Square",
+      "description": "You stand in the heart of Aldenmoor village. The cobblestone square is eerily quiet — most villagers have barricaded themselves indoors. Dark clouds swirl unnaturally over the ruined castle on the hill to the north. An old elder sits on a bench near the fountain, watching you with knowing eyes. A merchant's cart nearby still has a few supplies.",
+      "alt_descriptions": {
+        "shadow_knight_defeated": "The village square is bathed in warm sunlight for the first time in months. Villagers emerge from their homes, blinking in disbelief. Children laugh and play by the fountain. The elder rises from his bench, tears in his eyes, as he sees you returning from the castle."
+      },
+      "items": ["healing_potion_1"],
+      "enemies": [],
+      "choices": [
+        {
+          "text": "Ask the elder about the castle",
+          "target_room": null,
+          "required_flags": [],
+          "forbidden_flags": ["spoke_to_elder"],
+          "required_items": [],
+          "sets_flag": "spoke_to_elder",
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "The elder sighs heavily. 'That castle belonged to King Aldric, centuries ago. A good king, once. But something dark consumed him. Now his shadow haunts those halls, and the darkness spreads.' He leans closer. 'If you truly mean to face what's up there, you'll need more than courage.'"
+        },
+        {
+          "text": "Ask the elder about the old days",
+          "target_room": null,
+          "required_flags": ["spoke_to_elder"],
+          "forbidden_flags": ["knows_secret_passage"],
+          "required_items": [],
+          "sets_flag": "knows_secret_passage",
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "The elder's eyes light up with a distant memory. 'When I was a boy, we used to play in the hills near the castle. There's a passage — hidden behind the waterfall on the north slope. It leads right into the castle's lower halls. The king used it to escape during sieges.' He winks. 'Might save you from that locked gate.'"
+        },
+        {
+          "text": "Head north to the forest",
+          "target_room": "forest_path",
+          "required_flags": [],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You leave the village behind and follow the winding road into the darkening forest."
+        }
+      ]
+    },
+    "forest_path": {
+      "name": "Forest Path",
+      "description": "The forest path splits in two directions beneath a canopy of ancient oaks. The main road continues north toward the castle, but thick undergrowth and claw marks on the trees suggest something dangerous lurks ahead. A mossy side trail leads east toward what appears to be an old stone building. Near the fork, you notice something metallic half-buried in the dirt beside a fallen log.",
+      "alt_descriptions": {
+        "wolf_defeated": "The forest path is quiet now. The claw marks on the trees are the only reminder of the wolf that once prowled here. The main road north lies open, and the mossy trail east still leads toward the old chapel."
+      },
+      "items": ["iron_lever", "amulet_half_a"],
+      "enemies": [],
+      "choices": [
+        {
+          "text": "Take the main road north (a wolf blocks the way)",
+          "target_room": null,
+          "required_flags": [],
+          "forbidden_flags": ["wolf_defeated"],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": "forest_wolf",
+          "triggers_ending": null,
+          "description": "You push through the undergrowth onto the main road. A snarling shape leaps from the shadows!"
+        },
+        {
+          "text": "Continue north on the main road",
+          "target_room": "castle_gate",
+          "required_flags": ["wolf_defeated"],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "With the wolf gone, the road north is clear. You follow it uphill toward the looming castle."
+        },
+        {
+          "text": "Follow the mossy trail east to the old building",
+          "target_room": "old_chapel",
+          "required_flags": [],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You push aside hanging vines and follow the overgrown trail. The trees thin out to reveal a crumbling stone chapel."
+        },
+        {
+          "text": "Head south back to the village",
+          "target_room": "village_square",
+          "required_flags": [],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You retrace your steps back toward the village."
+        }
+      ]
+    },
+    "old_chapel": {
+      "name": "Old Chapel",
+      "description": "A small stone chapel, half-reclaimed by the forest. Ivy crawls over the cracked walls and stained glass windows are shattered. Inside, rows of rotting pews face a stone altar at the far end. The altar has an ornate compartment built into its base, sealed with a small lock shaped like a cross. Faded murals on the walls depict a king kneeling before a radiant light.",
+      "alt_descriptions": {
+        "altar_unlocked": "The old chapel stands quiet and still. The altar compartment hangs open — its treasure already claimed. Faded murals on the walls depict King Aldric in his days of glory."
+      },
+      "items": ["old_scroll"],
+      "enemies": [],
+      "choices": [
+        {
+          "text": "Unlock the altar compartment",
+          "target_room": null,
+          "required_flags": [],
+          "forbidden_flags": ["altar_unlocked"],
+          "required_items": ["chapel_key"],
+          "sets_flag": "altar_unlocked",
+          "removes_item": "chapel_key",
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "The cross-shaped key slides perfectly into the lock. With a click, the compartment swings open, revealing a gleaming silver dagger resting on a bed of faded velvet."
+        },
+        {
+          "text": "Head west back to the forest path",
+          "target_room": "forest_path",
+          "required_flags": [],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You leave the chapel and follow the mossy trail back to the forest path."
+        }
+      ]
+    },
+    "secret_passage": {
+      "name": "Secret Passage",
+      "description": "Behind the waterfall, just as the elder described, you find a narrow tunnel carved into the rock. Water drips from the ceiling and the air smells of damp earth. The passage is dark but navigable, sloping steadily upward. After a long climb, you see torchlight flickering ahead.",
+      "alt_descriptions": {},
+      "items": [],
+      "enemies": [],
+      "choices": [
+        {
+          "text": "Follow the passage into the castle",
+          "target_room": "castle_hall",
+          "required_flags": [],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": "entered_castle",
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You emerge from the passage through a hidden door in the castle wall, stepping into the great hall."
+        },
+        {
+          "text": "Go back outside",
+          "target_room": "castle_gate",
+          "required_flags": [],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You retreat back through the passage and emerge outside the castle."
+        }
+      ]
+    },
+    "castle_gate": {
+      "name": "Castle Gate",
+      "description": "The castle looms before you, a fortress of dark stone against the churning sky. The main gate is sealed by a heavy iron portcullis. Rust and age have fused it in place, but you notice an empty socket in the wall beside it — some kind of lever mechanism. To the east, you can hear the faint sound of a waterfall.",
+      "alt_descriptions": {
+        "portcullis_raised": "The castle gate stands open, the portcullis raised by the iron lever. Beyond it, the dark interior of the castle awaits."
+      },
+      "items": [],
+      "enemies": [],
+      "choices": [
+        {
+          "text": "Use the iron lever on the mechanism",
+          "target_room": null,
+          "required_flags": [],
+          "forbidden_flags": ["portcullis_raised"],
+          "required_items": ["iron_lever"],
+          "sets_flag": "portcullis_raised",
+          "removes_item": "iron_lever",
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You slot the iron lever into the mechanism and pull with all your strength. With a grinding screech, the portcullis rises, revealing the dark passage into the castle."
+        },
+        {
+          "text": "Enter the castle through the gate",
+          "target_room": "castle_hall",
+          "required_flags": ["portcullis_raised"],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": "entered_castle",
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You pass beneath the raised portcullis and step into the castle's great hall."
+        },
+        {
+          "text": "Search for the hidden passage by the waterfall",
+          "target_room": "secret_passage",
+          "required_flags": ["knows_secret_passage"],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "Remembering the elder's words, you find the waterfall on the north slope and push through the curtain of water to reveal a hidden tunnel."
+        },
+        {
+          "text": "Head south back to the forest",
+          "target_room": "forest_path",
+          "required_flags": [],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You head back down the hill toward the forest."
+        }
+      ]
+    },
+    "castle_hall": {
+      "name": "Castle Great Hall",
+      "description": "The great hall is vast and cold. Tattered banners hang from the vaulted ceiling, and a thick layer of dust covers everything. Broken furniture is scattered across the stone floor. A staircase at the far end leads up to the throne room, and a heavy door to the side is marked with a skull — it must lead to the dungeon. You hear shuffling footsteps echoing from the shadows.",
+      "alt_descriptions": {
+        "goblins_defeated": "The great hall is quiet now. The goblin patrol lies defeated among the broken furniture. The staircase to the throne room beckons, and the skull-marked door to the dungeon stands waiting."
+      },
+      "items": ["healing_potion_3", "amulet_half_b"],
+      "enemies": [],
+      "choices": [
+        {
+          "text": "Confront the goblin patrol",
+          "target_room": null,
+          "required_flags": [],
+          "forbidden_flags": ["goblins_defeated"],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": "goblin_patrol",
+          "triggers_ending": null,
+          "description": "You draw your weapon and step into the light. The goblins spot you immediately!"
+        },
+        {
+          "text": "Go up to the throne room",
+          "target_room": "throne_room",
+          "required_flags": ["goblins_defeated"],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You ascend the worn stone staircase. The air grows colder with each step, and the shadows deepen. At the top, a massive pair of doors stands before you. You push them open..."
+        },
+        {
+          "text": "Enter the dungeon",
+          "target_room": "dungeon",
+          "required_flags": ["dungeon_unlocked"],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You push open the heavy door and descend a narrow spiral staircase into the darkness below."
+        },
+        {
+          "text": "Use the castle key on the dungeon door",
+          "target_room": null,
+          "required_flags": [],
+          "forbidden_flags": ["dungeon_unlocked"],
+          "required_items": ["castle_key"],
+          "sets_flag": "dungeon_unlocked",
+          "removes_item": "castle_key",
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "The skull-shaped lock clicks open with a heavy clank. The dungeon door swings inward, releasing a gust of stale air."
+        },
+        {
+          "text": "Head back outside",
+          "target_room": "castle_gate",
+          "required_flags": [],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You retreat through the castle entrance back to the gate."
+        }
+      ]
+    },
+    "dungeon": {
+      "name": "Castle Dungeon",
+      "description": "The dungeon is damp and dark, lit only by a few sputtering torches. Rusted chains hang from the walls, and the floor is slick with moisture. In the last cell, you see a gaunt figure huddled in the corner — a prisoner, still alive. He looks up at you with hollow but hopeful eyes.",
+      "alt_descriptions": {
+        "spoke_to_prisoner": "The dungeon is as damp and dark as before. The prisoner's cell stands empty now — you told him the way out. His words about the Shadow Knight echo in your mind."
+      },
+      "items": ["chapel_key"],
+      "enemies": [],
+      "choices": [
+        {
+          "text": "Speak to the prisoner",
+          "target_room": null,
+          "required_flags": [],
+          "forbidden_flags": ["spoke_to_prisoner"],
+          "required_items": [],
+          "sets_flag": "spoke_to_prisoner",
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "'You... you've come to face him?' the prisoner croaks. 'The Shadow Knight — he is not what he seems. He was once King Aldric himself, cursed by dark magic he tried to wield to protect his people. The curse twisted him, bound his soul in shadow.' He grabs your arm. 'He is not evil — he is suffering. If you can remind him of who he was... there may be another way.' He tells you of the old chapel in the forest, where the king once prayed. 'There may be something there that can reach him.'"
+        },
+        {
+          "text": "Go back up to the great hall",
+          "target_room": "castle_hall",
+          "required_flags": [],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": null,
+          "description": "You climb the spiral staircase back up to the great hall."
+        }
+      ]
+    },
+    "throne_room": {
+      "name": "Throne Room",
+      "description": "The throne room is a cathedral of darkness. Massive pillars of black stone line the hall, and at the far end, a throne of twisted iron sits upon a raised dais. The air crackles with dark energy. As you enter, a figure rises from the throne — a towering knight in blackened armor, wreathed in living shadow. His eyes burn with violet flame as he turns to face you. The doors slam shut behind you. There is no retreat.",
+      "alt_descriptions": {},
+      "items": [],
+      "enemies": [],
+      "choices": [
+        {
+          "text": "Fight the Shadow Knight",
+          "target_room": null,
+          "required_flags": [],
+          "forbidden_flags": ["shadow_knight_defeated"],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": "shadow_knight",
+          "triggers_ending": null,
+          "description": "You draw your weapon and charge. The Shadow Knight raises his dark blade to meet you!"
+        },
+        {
+          "text": "Call out to King Aldric within the shadow",
+          "target_room": null,
+          "required_flags": ["spoke_to_prisoner", "knows_kings_history"],
+          "forbidden_flags": ["shadow_knight_defeated"],
+          "required_items": ["old_scroll"],
+          "sets_flag": "shadow_knight_defeated",
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": "redemption",
+          "description": ""
+        },
+        {
+          "text": "Claim your victory (with Silver Dagger)",
+          "target_room": null,
+          "required_flags": ["shadow_knight_defeated"],
+          "forbidden_flags": [],
+          "required_items": ["silver_dagger"],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": "hero",
+          "description": ""
+        },
+        {
+          "text": "Claim your victory",
+          "target_room": null,
+          "required_flags": ["shadow_knight_defeated"],
+          "forbidden_flags": [],
+          "required_items": [],
+          "sets_flag": null,
+          "removes_item": null,
+          "triggers_combat": null,
+          "triggers_ending": "pyrrhic",
+          "description": ""
+        }
+      ]
+    }
+  },
+  "endings": {
+    "hero": {
+      "title": "Hero of Aldenmoor",
+      "text": "As the Shadow Knight falls, you drive the Silver Dagger into the heart of the darkness. The blade flares with brilliant light, and the shadows shriek and dissolve. The cursed armor crumbles to dust, and for a brief moment, you see the ghostly form of King Aldric — noble, proud, and at peace. He mouths the words 'thank you' before fading into the light.\n\nThe dark clouds above the castle break apart, and golden sunlight floods through the shattered windows. The castle itself begins to change — stone repairs itself, banners unfurl in pristine condition, and flowers bloom in the courtyard. Aldenmoor is restored.\n\nYou descend the hill as church bells ring across the valley. The villagers rush to greet you, cheering and weeping with joy. The elder clasps your hand and whispers, 'You have done what no one else could. Aldenmoor will remember you forever.'\n\n=== THE END ==="
+    },
+    "pyrrhic": {
+      "title": "Pyrrhic Victory",
+      "text": "The Shadow Knight collapses, his dark armor cracking and splintering. But without the Silver Dagger to channel the light, the darkness has nowhere to go. It erupts outward in a shockwave that shakes the castle to its foundations.\n\nYou run as the castle crumbles around you, stone and shadow collapsing together. You barely make it through the gate before the entire fortress implodes, sending a pillar of dust into the sky. The dark clouds slowly disperse, but the hilltop is left as nothing but rubble.\n\nAldenmoor is safe. The villagers emerge from their homes and look to the sky with cautious hope. But the castle — and all the history within it — is gone forever. The elder places a hand on your shoulder. 'You saved us,' he says quietly, 'but at a cost. Some victories leave scars.'\n\n=== THE END ==="
+    },
+    "redemption": {
+      "title": "Redemption",
+      "text": "You hold up the old scroll and call out: 'King Aldric! I know who you are! I know what you sacrificed for your people!'\n\nThe Shadow Knight freezes. The violet flames in his eyes flicker. You read aloud from the scroll — the prayers he once spoke, the oaths he swore to protect Aldenmoor. With each word, the shadows around him writhe and weaken.\n\n'You are not this darkness,' you say. 'You are the king who gave everything for his people. Remember who you are.'\n\nThe Shadow Knight drops his sword. The black armor cracks, and light pours through the gaps. A human hand reaches out from within the shadow — trembling, desperate. You grasp it.\n\nThe darkness shatters like glass, and King Aldric stands before you — aged, weary, but free. Tears stream down his face. 'Centuries,' he whispers. 'Centuries I have been trapped. Thank you... thank you for remembering me.'\n\nThe curse is broken. The castle transforms around you as warmth and light return. King Aldric walks with you back to the village, where the people kneel before their long-lost king. A new era begins for Aldenmoor — not of shadow, but of hope.\n\n=== THE END ==="
+    }
+  }
+}
