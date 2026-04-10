@@ -1,0 +1,92 @@
+{
+  "items": {
+    "healing_potion_1": {
+      "name": "Healing Potion",
+      "description": "A small glass vial filled with a glowing red liquid. It smells faintly of herbs and honey.",
+      "usable_on": null,
+      "effect": "heal:30",
+      "combinable_with": null,
+      "combine_result": null
+    },
+    "healing_potion_2": {
+      "name": "Healing Potion",
+      "description": "A small glass vial filled with a glowing red liquid. It smells faintly of herbs and honey.",
+      "usable_on": null,
+      "effect": "heal:30",
+      "combinable_with": null,
+      "combine_result": null
+    },
+    "healing_potion_3": {
+      "name": "Healing Potion",
+      "description": "A small glass vial filled with a glowing red liquid. It smells faintly of herbs and honey.",
+      "usable_on": null,
+      "effect": "heal:30",
+      "combinable_with": null,
+      "combine_result": null
+    },
+    "iron_lever": {
+      "name": "Iron Lever",
+      "description": "A heavy iron bar with a hooked end, rusted but sturdy. It looks like it was designed to fit into some kind of mechanism.",
+      "usable_on": "castle_gate",
+      "effect": "unlock:portcullis_raised",
+      "combinable_with": null,
+      "combine_result": null
+    },
+    "silver_dagger": {
+      "name": "Silver Dagger",
+      "description": "An ornate dagger with a blade of pure silver. Ancient runes are etched along its edge, glowing faintly with a pale blue light. It feels warm to the touch.",
+      "usable_on": "shadow_knight",
+      "effect": "damage:15",
+      "combinable_with": null,
+      "combine_result": null
+    },
+    "chapel_key": {
+      "name": "Chapel Key",
+      "description": "A small brass key shaped like a cross. Its surface is covered in tiny engravings of prayers.",
+      "usable_on": "old_chapel",
+      "effect": "unlock:altar_unlocked",
+      "combinable_with": null,
+      "combine_result": null
+    },
+    "castle_key": {
+      "name": "Castle Key",
+      "description": "A large iron key with a skull motif on the handle. It looks like it opens something deep within the castle.",
+      "usable_on": "castle_hall",
+      "effect": "unlock:dungeon_unlocked",
+      "combinable_with": null,
+      "combine_result": null
+    },
+    "old_scroll": {
+      "name": "Old Scroll",
+      "description": "A crumbling parchment covered in faded writing. It tells the tale of King Aldric, who ruled this land centuries ago. He sought to protect his people from an ancient evil, but the dark magic consumed him instead, binding his soul to the castle forever.",
+      "usable_on": null,
+      "effect": "unlock:knows_kings_history",
+      "combinable_with": null,
+      "combine_result": null
+    },
+    "amulet_half_a": {
+      "name": "Amulet Half (Sun)",
+      "description": "Half of a golden amulet depicting a radiant sun. The broken edge looks like it would fit perfectly with another piece.",
+      "usable_on": null,
+      "effect": null,
+      "combinable_with": "amulet_half_b",
+      "combine_result": "protective_amulet"
+    },
+    "amulet_half_b": {
+      "name": "Amulet Half (Moon)",
+      "description": "Half of a golden amulet depicting a crescent moon. The broken edge looks like it would fit perfectly with another piece.",
+      "usable_on": null,
+      "effect": null,
+      "combinable_with": "amulet_half_a",
+      "combine_result": "protective_amulet"
+    },
+    "protective_amulet": {
+      "name": "Protective Amulet",
+      "description": "A complete golden amulet depicting the sun and moon united. It radiates a warm, protective energy. While wearing it, you feel your resilience strengthened.",
+      "usable_on": null,
+      "effect": "defense:5",
+      "combinable_with": null,
+      "combine_result": null
+    }
+  }
+}

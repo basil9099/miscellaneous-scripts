@@ -1,0 +1,34 @@
+{
+  "enemies": {
+    "forest_wolf": {
+      "name": "Forest Wolf",
+      "description": "A massive grey wolf steps onto the path, its yellow eyes fixed on you. Saliva drips from its bared fangs as a low growl rumbles from its chest. This beast will not let you pass without a fight.",
+      "hp": 30,
+      "max_hp": 30,
+      "attack": 8,
+      "defense": 2,
+      "defeat_flag": "wolf_defeated",
+      "loot": ["healing_potion_2"]
+    },
+    "goblin_patrol": {
+      "name": "Goblin Patrol",
+      "description": "A pair of armored goblins rounds the corner, their crude swords drawn. The larger one snarls and points at you, and they both charge forward with a cackling battle cry.",
+      "hp": 40,
+      "max_hp": 40,
+      "attack": 10,
+      "defense": 3,
+      "defeat_flag": "goblins_defeated",
+      "loot": ["castle_key"]
+    },
+    "shadow_knight": {
+      "name": "The Shadow Knight",
+      "description": "A towering figure in blackened armor rises from the throne. Shadows writhe around him like living tendrils, and his eyes burn with an otherworldly violet flame. The temperature drops as he draws a massive sword wreathed in dark energy. This is the source of the darkness plaguing Aldenmoor.",
+      "hp": 80,
+      "max_hp": 80,
+      "attack": 15,
+      "defense": 5,
+      "defeat_flag": "shadow_knight_defeated",
+      "loot": []
+    }
+  }
+}
